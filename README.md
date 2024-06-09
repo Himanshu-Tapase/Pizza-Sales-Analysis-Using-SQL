@@ -1,6 +1,6 @@
 # SQL-Projects-for-Data-Analysis
 
-PIZZAHUT  SALES  ANALYSIS  USING  SQL  
+PIZZA  SALES  ANALYSIS  USING  SQL  
 
 
 Basic Questions :

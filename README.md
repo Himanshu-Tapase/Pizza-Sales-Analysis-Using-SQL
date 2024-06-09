@@ -4,6 +4,7 @@ PIZZAHUT  SALES  ANALYSIS  USING  SQL
 
 
 Basics Questions 
+
 1. Determine the overall count of orders made.
 
 Query: SELECT COUNT(order_id) FROM orders;
@@ -44,3 +45,46 @@ Description: This query fetches the names of the five most popular pizza varieti
 
 Output: The names of the five most popular pizza varieties along with their order quantities.
 
+
+Intermediate Questions
+
+1. Combine the required tables in order to ascertain the total quantity of each pizza category that has been ordered.
+
+Query: SELECT pizza_types.category, SUM(order_details.quantity) AS quantity FROM pizza_types JOIN pizzas ON pizza_types.pizza_type_id = pizzas.pizza_type_id JOIN order_details ON order_details.pizza_id = 
+pizzas.pizza_id GROUP BY pizza_types.category ORDER BY quantity DESC;
+
+Description: This query combines the pizza_types, pizzas, and order_details tables to determine the total quantity of each pizza category that has been ordered.
+
+Output: The total quantity of each pizza category ordered.
+
+2. Analyze the distribution of orders based on the hour of the day.
+
+Query: SELECT HOUR(order_time), COUNT(order_id) AS order_count FROM orders GROUP BY HOUR(order_time);
+
+Description: This query analyzes the distribution of orders based on the hour of the day by grouping the orders table by the hour of the order_time.
+
+Output: The distribution of orders by hour of the day.
+
+3. Merge the appropriate tables to determine how pizzas are distributed across different categories.
+
+Query: SELECT category, COUNT(name) FROM pizza_types GROUP BY category;
+
+Description: This query merges the pizza_types table to determine how pizzas are distributed across different categories by grouping the results by category.
+
+Output: The distribution of pizzas across different categories.
+
+4. Organize the orders by date and compute the average daily number of pizzas that are ordered.
+
+Query: SELECT ROUND(AVG(quantity)) as avg_pizza_ordered_per_day FROM (SELECT orders.order_date, SUM(order_details.quantity) AS quantity FROM orders JOIN order_details ON orders.order_id = order_details.order_id GROUP BY orders.order_date) AS order_quantity;
+
+Description: This query organizes the orders by date and computes the average daily number of pizzas that are ordered by grouping the orders and order_details tables by order_date and calculating the average quantity.
+
+Output: The average daily number of pizzas ordered.
+
+5. Identify the top three pizza types that have been ordered the most, based on revenue.
+
+Query: SELECT pizza_types.name, SUM(order_details.quantity * pizzas.price) AS revenue FROM pizza_types JOIN pizzas ON pizzas.pizza_type_id = pizza_types.pizza_type_id JOIN order_details ON order_details.pizza_id = pizzas.pizza_id GROUP BY pizza_types.name ORDER BY revenue DESC LIMIT 3;
+
+Description: This query identifies the top three pizza types that have been ordered the most, based on revenue, by joining the pizza_types, pizzas, and order_details tables and grouping the results by pizza_types.name.
+
+Output: The top three pizza types ordered based on revenue.
